@@ -41,6 +41,13 @@ def test_saque_diminui_o_saldo(conta):
     assert conta.saldo == 70
 
 
+def test_sacar_zero_levanta_erro():
+    conta = ContaBancaria("Dani", saldo_inicial=50)
+    with pytest.raises(ValueError):
+        conta.sacar(0)
+    assert conta.saldo == 50
+
+
 def test_sacar_exatamente_o_saldo_zera_a_conta(conta):
     # BORDA: sacar tudo o que existe é permitido.
     conta.sacar(100)

@@ -69,11 +69,11 @@ Comandos úteis: `pytest -v` (um teste por linha) · `pytest -x` (para no 1º er
 ## 4. Prática 3 — Conta bancária (1h30) · estado, fixtures, exceções
 **Conceitos:** fixture, isolamento entre testes, exceção própria, "efeito colateral", encapsulamento (`property`).
 
-1. `cd pratica3_conta` → `pytest -v`. Esperado: **11 passed**.
+1. `cd pratica3_conta` → `pytest -v`. Esperado: **12 passed**.
 2. Mostre a fixture `conta`: cada teste recebe uma conta nova (Ana, saldo 100).
 3. Ponto-chave: `test_transferencia_sem_saldo_nao_credita_o_destino` — não basta a exceção acontecer; **nada pode ter mudado** nas duas contas.
 4. **Experimento:** em `conta.py`, no método `sacar`, mova a linha `self._saldo -= valor` para ANTES da verificação de saldo. Quais testes falham? Desfaça.
-5. **Exercício dos alunos:** adicionar um teste para `ContaBancaria("Dani", 50).sacar(0)` (deve levantar `ValueError`).
+5. O teste para `ContaBancaria("Dani", 50).sacar(0)` está em `test_conta.py`: saque zero deve levantar `ValueError` sem alterar o saldo.
 
 ## 5. Prática 4 — Conversor desktop (1h30) · testar Tkinter
 **Conceitos:** separar lógica de interface, `Mock`, `patch`, `__new__`, GUI real com `invoke()`.
@@ -85,7 +85,7 @@ Comandos úteis: `pytest -v` (um teste por linha) · `pytest -x` (para no 1º er
    - **B — interface com dublês:** `AppConversor.__new__` pula o `__init__` (que abriria janela); `Mock` imita os widgets; `patch("app.messagebox")` impede o pop-up.
    - **C — janela real:** `botao.invoke()` clica sem `mainloop()`. Só 1 teste: é o mais lento e frágil.
 4. **Experimento:** em `conversor.py`, troque `.replace(",", ".")` por `.replace(";", ".")` e rode. Qual teste acusa? (o da vírgula decimal).
-5. **Exercício dos alunos:** testar `converter_texto("0")` → `"32.0 °F"`.
+5. O teste para `converter_texto("0")` está em `test_conversor.py` e verifica o resultado `"32.0 °F"`.
 
 ## 6. Fechamento (30 min)
 Rode tudo na raiz: `pytest -m "not gui"` (a Prática 2 só fica 100% verde depois da correção).
